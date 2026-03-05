@@ -1,0 +1,46 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.5.2 Chrome/142.0.7444.265 Electron/39.6.1 Safari/537.36" version="29.5.2">
+  <diagram name="Página-1" id="YrRSJp48MhUAHgRWgYur">
+    <mxGraphModel dx="907" dy="593" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="370" width="670" x="40" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Empresa Pessoa" vertex="1">
+          <mxGeometry height="30" width="110" x="290" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Cadastro de Cliente" vertex="1">
+          <mxGeometry height="60" width="120" x="80" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Produtos" vertex="1">
+          <mxGeometry height="60" width="120" x="270" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-9" parent="1" style="shape=image;html=1;verticalLabelPosition=bottom;verticalAlign=top;imageAspect=0;image=img/clipart/Gear_128x128.png" value="" vertex="1">
+          <mxGeometry height="40" width="40" x="250" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-13" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Cadastra&lt;br&gt;Consulta" vertex="1">
+          <mxGeometry height="60" width="140" x="70" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-14" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Cria pedido&lt;br&gt;Um pedido pode ter X prod" vertex="1">
+          <mxGeometry height="60" width="200" x="440" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-15" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Cadastra&lt;br&gt;Consultas" vertex="1">
+          <mxGeometry height="60" width="160" x="250" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-16" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="ID&lt;br&gt;NOME&lt;br&gt;EMAIL" vertex="1">
+          <mxGeometry height="120" width="80" x="90" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-17" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="ID&lt;br&gt;NOME&lt;br&gt;PREÇO&lt;br&gt;QUANT. EST" vertex="1">
+          <mxGeometry height="120" width="80" x="300" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-18" parent="1" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" value="PRODUTO&lt;br&gt;QUANTIDADE&lt;br&gt;PREÇO DA COMP" vertex="1">
+          <mxGeometry height="120" width="120" x="510" y="290" as="geometry" />
+        </mxCell>
+        <mxCell id="zV7FfPnb3nEdq2NcioHx-21" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Pedidos" vertex="1">
+          <mxGeometry height="60" width="120" x="490" y="150" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
