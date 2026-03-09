@@ -2,7 +2,7 @@ package com.sistemapedidos.pessoa.controller.cliente;
 
 import com.sistemapedidos.pessoa.dto.ClienteCreateRequest;
 import com.sistemapedidos.pessoa.dto.ClienteResponse;
-import com.sistemapedidos.pessoa.service.ClienteService;
+import com.sistemapedidos.pessoa.interfaces.ClienteServiceInterface;
 import com.sistemapedidos.pessoa.model.Cliente;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
-	private final ClienteService clienteService;
+	private final ClienteServiceInterface clienteService;
 
-	public ClienteController(ClienteService clienteService) {
+	public ClienteController(ClienteServiceInterface clienteService) {
 		this.clienteService = clienteService;
 	}
 

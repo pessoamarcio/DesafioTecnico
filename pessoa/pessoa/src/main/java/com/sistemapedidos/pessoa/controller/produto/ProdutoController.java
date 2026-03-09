@@ -2,7 +2,7 @@ package com.sistemapedidos.pessoa.controller.produto;
 
 import com.sistemapedidos.pessoa.dto.ProdutoCreateRequest;
 import com.sistemapedidos.pessoa.dto.ProdutoResponse;
-import com.sistemapedidos.pessoa.service.ProdutoService;
+import com.sistemapedidos.pessoa.interfaces.ProdutoServiceInterface;
 import com.sistemapedidos.pessoa.model.Produto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/produtos")
 public class ProdutoController {
 
-	private final ProdutoService produtoService;
+	private final ProdutoServiceInterface produtoService;
 
-	public ProdutoController(ProdutoService produtoService) {
+	public ProdutoController(ProdutoServiceInterface produtoService) {
 		this.produtoService = produtoService;
 	}
 
@@ -40,4 +40,3 @@ public class ProdutoController {
 		return ProdutoResponse.from(produtoService.buscarPorId(id));
 	}
 }
-
