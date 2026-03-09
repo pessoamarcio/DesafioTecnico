@@ -2,8 +2,6 @@ package com.sistemapedidos.pessoa.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,17 +21,16 @@ public class Cliente {
 	@Column(nullable = false, unique = true)
 	private String email;
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private StatusCliente status = StatusCliente.ATIVO;
+	@Column(nullable = false, unique = true)
+	private String cpf;
 
 	protected Cliente() {
 	}
 
-	public Cliente(String nome, String email, StatusCliente status) {
+	public Cliente(String nome, String email, String cpf) {
 		this.nome = nome;
 		this.email = email;
-		this.status = status == null ? StatusCliente.ATIVO : status;
+		this.cpf = cpf;
 	}
 
 	public Long getId() {
@@ -48,12 +45,7 @@ public class Cliente {
 		return email;
 	}
 
-	public StatusCliente getStatus() {
-		return status;
-	}
-
-	public boolean estaAtivo() {
-		return status == StatusCliente.ATIVO;
+	public String getCpf() {
+		return cpf;
 	}
 }
-

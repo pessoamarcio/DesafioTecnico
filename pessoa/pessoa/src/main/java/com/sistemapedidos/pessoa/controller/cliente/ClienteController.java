@@ -26,7 +26,7 @@ public class ClienteController {
 
 	@PostMapping
 	public ResponseEntity<ClienteResponse> cadastrar(@RequestBody @Valid ClienteCreateRequest request) {
-		Cliente cliente = clienteService.cadastrar(request.nome(), request.email(), request.status());
+		Cliente cliente = clienteService.cadastrar(request.nome(), request.email(), request.cpf());
 		return ResponseEntity.status(HttpStatus.CREATED).body(ClienteResponse.from(cliente));
 	}
 
@@ -35,4 +35,3 @@ public class ClienteController {
 		return ClienteResponse.from(clienteService.buscarPorId(id));
 	}
 }
-
