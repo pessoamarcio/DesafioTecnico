@@ -1,5 +1,8 @@
 package com.sistemapedidos.pessoa.model;
 
+import com.sistemapedidos.pessoa.model.Produto;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -7,11 +10,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+
 import java.math.BigDecimal;
 
+@Entity
+@Table(name = "itens_pedido")
 public class ItemPedido {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,39 +29,42 @@ public class ItemPedido {
     @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
 
+    @Column(nullable = false)
     private int quantidade;
 
+    @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal precoNoMomentoDaCompra;
 
-    protected ItemPedido(){
+    protected ItemPedido() {
     }
 
-    public ItemPedido(Produto produto, int quantidade, BigDecimal precoNoMomentoDaCompra){
+    public ItemPedido(Produto produto, int quantidade, BigDecimal precoNoMomentoDaCompra) {
         this.produto = produto;
         this.quantidade = quantidade;
         this.precoNoMomentoDaCompra = precoNoMomentoDaCompra;
     }
 
-    void setPedido(Pedido pedido){
+    void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
 
-    void long getId(){
-        return this.id;
-    }
-    public void getQuantidade(Long id){
-        return quantidade;
+    public Long getId() {
+        return id;
     }
 
-    public int getProduto(){
+    public Produto getProduto() {
         return produto;
     }
 
-    public  BigDecimal getPrecoNoMomentoDaCompra(){
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public BigDecimal getPrecoNoMomentoDaCompra() {
         return precoNoMomentoDaCompra;
     }
 
-    public BigDecimal getTotalItem(){
+    public BigDecimal getTotalItem() {
         return precoNoMomentoDaCompra.multiply(BigDecimal.valueOf(quantidade));
     }
 }

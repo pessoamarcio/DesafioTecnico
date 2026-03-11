@@ -7,10 +7,11 @@ import com.sistemapedidos.pessoa.model.StatusPedido;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.UUID;
 
 public record PedidoResponse(
         Long id,
-        Long clienteId,
+        UUID clienteId,
         StatusPedido status,
         OffsetDateTime criadoEm,
         BigDecimal valorTotal,
@@ -28,7 +29,7 @@ public record PedidoResponse(
     }
 
     public record ItemResponse(
-            Long produtoId,
+            UUID produtoId,
             String produtoNome,
             int quantidade,
             BigDecimal precoNoMomentoDaCompra,
@@ -45,4 +46,3 @@ public record PedidoResponse(
         }
     }
 }
-

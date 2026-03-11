@@ -1,8 +1,6 @@
 package com.sistemapedidos.pessoa.model;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.sistemapedidos.pessoa.model.Cliente;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,18 +16,17 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
-import java.util.OffsetDateTime;
-import java.util.List;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
-
+import java.util.List;
 
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
 
     @Id
-    @GeneratedValue(strategy.GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
@@ -37,7 +34,7 @@ public class Pedido {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusPedido status = statusPedido.CRIADO;
+    private StatusPedido status = StatusPedido.CRIADO;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ItemPedido> itens = new ArrayList<>();
@@ -45,14 +42,14 @@ public class Pedido {
     @Column(nullable = false)
     private OffsetDateTime criadoEm = OffsetDateTime.now();
 
-    protected Pedido() {}
+    protected Pedido() {
+    }
 
-    public Pedido(Cliente cliente)
-        {
-            this.cliente = cliente;
-        }
+    public Pedido(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -60,7 +57,7 @@ public class Pedido {
         return cliente;
     }
 
-    public Status getStatus() {
+    public StatusPedido getStatus() {
         return status;
     }
 
@@ -68,7 +65,7 @@ public class Pedido {
         return criadoEm;
     }
 
-    public List<ItemPedido> getItens(){
+    public List<ItemPedido> getItens() {
         return List.copyOf(itens);
     }
 
@@ -78,49 +75,47 @@ public class Pedido {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    public boolean estaPago(){
+    public boolean estaPago() {
         return status == StatusPedido.PAGO;
     }
 
-    public boolean estaCancelado(){
+    public boolean estaCancelado() {
         return status == StatusPedido.CANCELADO;
     }
 
-    public void substituirItens(List<ItemPedido> novosItens){
-        validarAlteracao();
+    public void substituirItens(List<ItemPedido> novosItens) {
+        if (status == StatusPedido.PAGO) {
+            throw new IllegalStateException("Pedido PAGO não pode ser alterado.");
+        }
+        if (status == StatusPedido.CANCELADO) {
+            throw new IllegalStateException("Pedido CANCELADO não pode ser alterado.");
+        }
         itens.clear();
-        novosItens.forEach(this::adicionarItem);
-    }
-
-    private void validarAlteracao() {
-        switch (status) {
-            case PAGO -> throw new IllegalStateException("Pedido pago não pode ser alterado.");
-            case CANCELADO -> throw new IllegalStateException("Pedido cancelado não pode ser alterado.");
-            default -> {
-            }
+        for (ItemPedido item : novosItens) {
+            adicionarItem(item);
         }
     }
 
-    public void adicionarItem(ItemPedido item){
+    public void adicionarItem(ItemPedido item) {
         item.setPedido(this);
         itens.add(item);
     }
 
-    public void pagar(){
-        if(status == StatusPedido.CANCELADO){
-            throw new IllegalStateException(s: "Pedido cancelado não pode ser pago.")
+    public void pagar() {
+        if (status == StatusPedido.CANCELADO) {
+            throw new IllegalStateException("Pedido CANCELADO não pode ser pago.");
         }
+        status = StatusPedido.PAGO;
     }
 
-    public void cancelar(){
-        switch (status) {
-            case PAGO -> throw new IllegalStateException("Pedido pago nao pode ser alterado.");
-            case CANCELADO -> {
-                return;
-            }
-            default -> status = StatusPedido.CANCELADO;
+    public void cancelar() {
+        if (status == StatusPedido.PAGO) {
+            throw new IllegalStateException("Pedido PAGO não pode ser alterado.");
         }
+        if (status == StatusPedido.CANCELADO) {
+            return;
+        }
+        status = StatusPedido.CANCELADO;
     }
-
-
 }
+

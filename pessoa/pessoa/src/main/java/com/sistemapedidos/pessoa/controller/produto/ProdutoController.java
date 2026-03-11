@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/produtos")
 public class ProdutoController {
@@ -36,7 +38,7 @@ public class ProdutoController {
 	}
 
 	@GetMapping("/{id}")
-	public ProdutoResponse buscarPorId(@PathVariable Long id) {
+	public ProdutoResponse buscarPorId(@PathVariable UUID id) {
 		return ProdutoResponse.from(produtoService.buscarPorId(id));
 	}
 }

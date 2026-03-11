@@ -10,14 +10,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 @Table(name = "produtos")
 public class Produto {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.UUID)
+	private UUID id;
 
 	@Column(nullable = false)
 	private String nome;
@@ -42,7 +43,7 @@ public class Produto {
 		this.status = status == null ? StatusProduto.DISPONIVEL : status;
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
@@ -74,4 +75,3 @@ public class Produto {
 		this.quantidadeEmEstoque += quantidade;
 	}
 }
-

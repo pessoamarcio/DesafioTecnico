@@ -4,9 +4,10 @@ import com.sistemapedidos.pessoa.model.Produto;
 import com.sistemapedidos.pessoa.model.StatusProduto;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public record ProdutoResponse(
-		Long id,
+		UUID id,
 		String nome,
 		BigDecimal preco,
 		int quantidadeEmEstoque,
@@ -22,4 +23,3 @@ public record ProdutoResponse(
 		);
 	}
 }
-

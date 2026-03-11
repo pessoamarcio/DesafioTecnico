@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/clientes")
 public class ClienteController {
@@ -26,12 +28,17 @@ public class ClienteController {
 
 	@PostMapping
 	public ResponseEntity<ClienteResponse> cadastrar(@RequestBody @Valid ClienteCreateRequest request) {
-		Cliente cliente = clienteService.cadastrar(request.nome(), request.email(), request.cpf());
+		Cliente cliente = clienteService.cadastrar(
+				request.nome(),
+				request.email(),
+				request.cpf(),
+				request.status()
+		);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ClienteResponse.from(cliente));
 	}
 
 	@GetMapping("/{id}")
-	public ClienteResponse buscarPorId(@PathVariable Long id) {
+	public ClienteResponse buscarPorId(@PathVariable UUID id) {
 		return ClienteResponse.from(clienteService.buscarPorId(id));
 	}
 }

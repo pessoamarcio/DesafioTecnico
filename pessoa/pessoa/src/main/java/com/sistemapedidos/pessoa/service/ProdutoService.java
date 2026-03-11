@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Service
 public class ProdutoService implements ProdutoServiceInterface {
@@ -27,7 +28,7 @@ public class ProdutoService implements ProdutoServiceInterface {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Produto buscarPorId(Long id) {
+	public Produto buscarPorId(UUID id) {
 		return produtoRepository.findById(id)
 				.orElseThrow(() -> new NaoEncontradoException("Produto não encontrado: " + id));
 	}
