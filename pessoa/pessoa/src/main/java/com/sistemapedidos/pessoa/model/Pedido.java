@@ -19,14 +19,15 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
@@ -49,7 +50,7 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -118,4 +119,3 @@ public class Pedido {
         status = StatusPedido.CANCELADO;
     }
 }
-

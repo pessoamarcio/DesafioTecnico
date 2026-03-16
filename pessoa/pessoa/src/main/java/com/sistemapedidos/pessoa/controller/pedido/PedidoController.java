@@ -2,13 +2,18 @@ package com.sistemapedidos.pessoa.controller.pedido;
 
 import com.sistemapedidos.pessoa.dto.PedidoCreateRequest;
 import com.sistemapedidos.pessoa.dto.PedidoItemRequest;
+import com.sistemapedidos.pessoa.dto.PedidoItensRequest;
 import com.sistemapedidos.pessoa.dto.PedidoResponse;
+import com.sistemapedidos.pessoa.exception.RegraNegocioException;
 import com.sistemapedidos.pessoa.model.Pedido;
 import com.sistemapedidos.pessoa.service.PedidoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,9 +42,35 @@ public class PedidoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(PedidoResponse.from(pedido));
     }
 
+    @GetMapping("/{id}")
+    public PedidoResponse buscarPorId(@PathVariable UUID id) {
+        return PedidoResponse.from(pedidoService.buscarPorId(id));
+    }
+
+    @PutMapping("/{id}")
+    public PedidoResponse substituirItens(@PathVariable UUID id, @RequestBody @Valid PedidoItensRequest request) {
+        return PedidoResponse.from(pedidoService.substituirItens(id, toQuantidades(request.itens())));
+    }
+
+    @PostMapping("/{id}/pagar")
+    public PedidoResponse pagar(@PathVariable UUID id) {
+        return PedidoResponse.from(pedidoService.pagar(id));
+    }
+
+    @PostMapping("/{id}/cancelar")
+    public PedidoResponse cancelar(@PathVariable UUID id) {
+        return PedidoResponse.from(pedidoService.cancelar(id));
+    }
+
     private static Map<UUID, Integer> toQuantidades(List<PedidoItemRequest> itens) {
         Map<UUID, Integer> quantidades = new HashMap<>();
+        if (itens == null) {
+            return quantidades;
+        }
         for (PedidoItemRequest item : itens) {
+            if (item == null || item.produtoId() == null) {
+                throw new RegraNegocioException("Produto é obrigatório.");
+            }
             quantidades.merge(item.produtoId(), item.quantidade(), Integer::sum);
         }
         return quantidades;

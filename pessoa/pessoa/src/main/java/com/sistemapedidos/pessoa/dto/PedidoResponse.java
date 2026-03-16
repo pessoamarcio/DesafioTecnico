@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 public record PedidoResponse(
-        Long id,
+        UUID id,
         UUID clienteId,
         StatusPedido status,
         OffsetDateTime criadoEm,
