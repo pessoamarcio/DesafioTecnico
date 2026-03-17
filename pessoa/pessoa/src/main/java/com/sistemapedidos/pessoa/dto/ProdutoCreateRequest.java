@@ -12,7 +12,7 @@ public record ProdutoCreateRequest(
 		String nome,
 		@NotNull(message = "preço é obrigatório")
 		BigDecimal preco,
-		@PositiveOrZero(message = "quantidadeEmEstoque deve ser >= 0")
+		@PositiveOrZero(message = "Quantidade em estoque deve ser maior ou igual a 0")
 		int quantidadeEmEstoque,
 		StatusProduto status
 ) {

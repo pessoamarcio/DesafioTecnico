@@ -5,8 +5,8 @@ import com.sistemapedidos.pessoa.dto.PedidoItemRequest;
 import com.sistemapedidos.pessoa.dto.PedidoItensRequest;
 import com.sistemapedidos.pessoa.dto.PedidoResponse;
 import com.sistemapedidos.pessoa.exception.RegraNegocioException;
+import com.sistemapedidos.pessoa.interfaces.PedidoServiceInterface;
 import com.sistemapedidos.pessoa.model.Pedido;
-import com.sistemapedidos.pessoa.service.PedidoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +27,9 @@ import java.util.UUID;
 @RequestMapping("/api/pedidos")
 public class PedidoController {
 
-    private final PedidoService pedidoService;
+    private final PedidoServiceInterface pedidoService;
 
-    public PedidoController(PedidoService pedidoService) {
+    public PedidoController(PedidoServiceInterface pedidoService) {
         this.pedidoService = pedidoService;
     }
 

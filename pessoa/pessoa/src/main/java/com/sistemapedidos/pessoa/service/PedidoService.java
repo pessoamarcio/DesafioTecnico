@@ -2,6 +2,7 @@ package com.sistemapedidos.pessoa.service;
 
 import com.sistemapedidos.pessoa.exception.NaoEncontradoException;
 import com.sistemapedidos.pessoa.exception.RegraNegocioException;
+import com.sistemapedidos.pessoa.interfaces.PedidoServiceInterface;
 import com.sistemapedidos.pessoa.model.Cliente;
 import com.sistemapedidos.pessoa.model.ItemPedido;
 import com.sistemapedidos.pessoa.model.Pedido;
@@ -24,7 +25,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class PedidoService {
+public class PedidoService implements PedidoServiceInterface {
 
     private final PedidoRepository pedidoRepository;
     private final ClienteRepository clienteRepository;
@@ -40,8 +41,9 @@ public class PedidoService {
         this.produtoRepository = produtoRepository;
     }
 
-    @Transactional
-    public Pedido criarPedido(UUID clienteId, Map<UUID, Integer> itens) {
+	@Transactional
+	@Override
+	public Pedido criarPedido(UUID clienteId, Map<UUID, Integer> itens) {
         Map<UUID, Integer> quantidadePorProduto = validarQuantidades(itens);
 
         Cliente cliente = clienteRepository.findById(clienteId)
@@ -80,14 +82,16 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
-    @Transactional(readOnly = true)
-    public Pedido buscarPorId(UUID id) {
+	@Transactional(readOnly = true)
+	@Override
+	public Pedido buscarPorId(UUID id) {
         return pedidoRepository.findById(id)
                 .orElseThrow(() -> new NaoEncontradoException("Pedido não encontrado: " + id));
     }
 
-    @Transactional
-    public Pedido substituirItens(UUID pedidoId, Map<UUID, Integer> itens) {
+	@Transactional
+	@Override
+	public Pedido substituirItens(UUID pedidoId, Map<UUID, Integer> itens) {
         Map<UUID, Integer> novaQuantidadePorProduto = validarQuantidades(itens);
 
         Pedido pedido = buscarPorId(pedidoId);
@@ -143,8 +147,9 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
-    @Transactional
-    public Pedido pagar(UUID pedidoId) {
+	@Transactional
+	@Override
+	public Pedido pagar(UUID pedidoId) {
         Pedido pedido = buscarPorId(pedidoId);
         if (pedido.getStatus() == StatusPedido.CANCELADO) {
             throw new RegraNegocioException("Pedido CANCELADO não pode ser pago.");
@@ -153,8 +158,9 @@ public class PedidoService {
         return pedidoRepository.save(pedido);
     }
 
-    @Transactional
-    public Pedido cancelar(UUID pedidoId) {
+	@Transactional
+	@Override
+	public Pedido cancelar(UUID pedidoId) {
         Pedido pedido = buscarPorId(pedidoId);
         if (pedido.getStatus() == StatusPedido.PAGO) {
             throw new RegraNegocioException("Pedido PAGO não pode ser alterado.");

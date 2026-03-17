@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Positive;
 import java.util.UUID;
 
 public record PedidoItemRequest(
-        @NotNull(message = "produtoId e obrigatorio")
+        @NotNull(message = "produtoId é obrigatorio")
         @Schema(description = "UUID do produto", example = "")
         UUID produtoId,
         @Positive(message = "quantidade deve ser > 0")
