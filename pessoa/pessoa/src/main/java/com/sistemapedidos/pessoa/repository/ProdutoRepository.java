@@ -1,21 +1,35 @@
 package com.sistemapedidos.pessoa.repository;
 
 import com.sistemapedidos.pessoa.model.Produto;
-import jakarta.persistence.LockModeType;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Lock;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
+@Repository
+public class ProdutoRepository {
 
-	boolean existsByNomeIgnoreCase(String nome);
+	private final ProdutoRepositoryJpa produtoRepositoryJpa;
 
-	@Lock(LockModeType.PESSIMISTIC_WRITE)
-	@Query("select p from Produto p where p.id in :ids")
-	List<Produto> findAllByIdForUpdate(@Param("ids") Collection<UUID> ids);
+	public ProdutoRepository(ProdutoRepositoryJpa produtoRepositoryJpa) {
+		this.produtoRepositoryJpa = produtoRepositoryJpa;
+	}
+
+	public Produto save(Produto produto) {
+		return produtoRepositoryJpa.save(produto);
+	}
+
+	public Optional<Produto> findById(UUID id) {
+		return produtoRepositoryJpa.findById(id);
+	}
+
+	public boolean existsByNomeIgnoreCase(String nome) {
+		return produtoRepositoryJpa.existsByNomeIgnoreCase(nome);
+	}
+
+	public List<Produto> findAllByIdForUpdate(Collection<UUID> ids) {
+		return produtoRepositoryJpa.findAllByIdForUpdate(ids);
+	}
 }
