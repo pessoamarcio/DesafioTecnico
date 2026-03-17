@@ -1,6 +1,7 @@
 package com.sistemapedidos.pessoa.service;
 
 import com.sistemapedidos.pessoa.exception.NaoEncontradoException;
+import com.sistemapedidos.pessoa.exception.RegraNegocioException;
 import com.sistemapedidos.pessoa.interfaces.ClienteServiceInterface;
 import com.sistemapedidos.pessoa.model.Cliente;
 import com.sistemapedidos.pessoa.model.StatusCliente;
@@ -22,6 +23,12 @@ public class ClienteService implements ClienteServiceInterface {
 	@Transactional
 	@Override
 	public Cliente cadastrar(String nome, String email, String cpf, StatusCliente status) {
+		if (clienteRepository.existsByCpf(cpf)) {
+			throw new RegraNegocioException("CPF já cadastrado.");
+		}
+		if (clienteRepository.existsByEmailIgnoreCase(email)) {
+			throw new RegraNegocioException("E-mail já cadastrado.");
+		}
 		return clienteRepository.save(new Cliente(nome, email, cpf, status));
 	}
 

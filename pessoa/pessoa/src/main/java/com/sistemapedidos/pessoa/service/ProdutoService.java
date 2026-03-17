@@ -1,6 +1,7 @@
 package com.sistemapedidos.pessoa.service;
 
 import com.sistemapedidos.pessoa.exception.NaoEncontradoException;
+import com.sistemapedidos.pessoa.exception.RegraNegocioException;
 import com.sistemapedidos.pessoa.interfaces.ProdutoServiceInterface;
 import com.sistemapedidos.pessoa.model.Produto;
 import com.sistemapedidos.pessoa.repository.ProdutoRepository;
@@ -23,6 +24,9 @@ public class ProdutoService implements ProdutoServiceInterface {
 	@Transactional
 	@Override
 	public Produto cadastrar(String nome, BigDecimal preco, int quantidadeEmEstoque, StatusProduto status) {
+		if (produtoRepository.existsByNomeIgnoreCase(nome)) {
+			throw new RegraNegocioException("Produto já cadastrado com este nome.");
+		}
 		return produtoRepository.save(new Produto(nome, preco, quantidadeEmEstoque, status));
 	}
 

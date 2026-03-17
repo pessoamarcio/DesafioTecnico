@@ -13,6 +13,8 @@ import java.util.UUID;
 
 public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
 
+	boolean existsByNomeIgnoreCase(String nome);
+
 	@Lock(LockModeType.PESSIMISTIC_WRITE)
 	@Query("select p from Produto p where p.id in :ids")
 	List<Produto> findAllByIdForUpdate(@Param("ids") Collection<UUID> ids);
