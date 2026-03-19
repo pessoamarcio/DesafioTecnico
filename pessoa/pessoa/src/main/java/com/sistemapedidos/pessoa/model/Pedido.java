@@ -72,7 +72,7 @@ public class Pedido {
 
     public BigDecimal getValorTotal() {
         return itens.stream()
-                .map(ItemPedido::getTotalItem)
+                .map(ItemPedido::getValorTotal)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 

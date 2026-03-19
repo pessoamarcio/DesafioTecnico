@@ -33,15 +33,15 @@ public class ItemPedido {
     private int quantidade;
 
     @Column(nullable = false, precision = 19, scale = 2)
-    private BigDecimal precoNoMomentoDaCompra;
+    private BigDecimal valorDaCompra;
 
     protected ItemPedido() {
     }
 
-    public ItemPedido(Produto produto, int quantidade, BigDecimal precoNoMomentoDaCompra) {
+    public ItemPedido(Produto produto, int quantidade, BigDecimal valorDaCompra) {
         this.produto = produto;
         this.quantidade = quantidade;
-        this.precoNoMomentoDaCompra = precoNoMomentoDaCompra;
+        this.valorDaCompra = valorDaCompra;
     }
 
     void setPedido(Pedido pedido) {
@@ -60,11 +60,11 @@ public class ItemPedido {
         return quantidade;
     }
 
-    public BigDecimal getPrecoNoMomentoDaCompra() {
-        return precoNoMomentoDaCompra;
+    public BigDecimal getValorDaCompra() {
+        return valorDaCompra;
     }
 
-    public BigDecimal getTotalItem() {
-        return precoNoMomentoDaCompra.multiply(BigDecimal.valueOf(quantidade));
+    public BigDecimal getValorTotal() {
+        return valorDaCompra.multiply(BigDecimal.valueOf(quantidade));
     }
 }

@@ -32,16 +32,16 @@ public record PedidoResponse(
             UUID produtoId,
             String produtoNome,
             int quantidade,
-            BigDecimal precoNoMomentoDaCompra,
-            BigDecimal totalItem
+            BigDecimal valorDaCompra,
+            BigDecimal valorTotal
     ) {
         static ItemResponse from(ItemPedido item) {
             return new ItemResponse(
                     item.getProduto().getId(),
                     item.getProduto().getNome(),
                     item.getQuantidade(),
-                    item.getPrecoNoMomentoDaCompra(),
-                    item.getTotalItem()
+                    item.getValorDaCompra(),
+                    item.getValorTotal()
             );
         }
     }
